@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
-  Box,
-  Text,
   Center,
-  Button,
-  Input,
   Stack,
   Heading,
   HStack,
   VStack,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from '@chakra-ui/react'
 
+import { useAppSelector } from './hooks'
 function App() {
   return (
     <Center p={10}>
@@ -18,7 +20,6 @@ function App() {
         <Heading>Find ND Filter</Heading>
         <HStack spacing={4}>
           <SettingForm HeadText='Your setting' />
-          <SettingForm HeadText='Reference setting' />
         </HStack>
         <Heading>You need : 100 ND</Heading>
       </VStack>
@@ -30,6 +31,7 @@ type SettingFormProps = {
   HeadText: string
 }
 function SettingForm({ HeadText }: SettingFormProps) {
+  const { iso, shutterSpeed, fNumber } = useAppSelector((state) => state.exposure)
   return (
     <Stack
       spacing={3}
@@ -41,10 +43,26 @@ function SettingForm({ HeadText }: SettingFormProps) {
       w={'sm'}
     >
       <Heading>{HeadText}</Heading>
-      <Input placeholder='iso' />
-      <Input placeholder='shutter speed (1/s)' />
-      <Input placeholder='f value' />
+      <NumberInputForm value={iso} />
+      <NumberInputForm value={shutterSpeed} />
+      <NumberInputForm value={fNumber} />
     </Stack>
+  )
+}
+
+type NumberInputFormProps = {
+  value: number
+}
+
+function NumberInputForm({ value }: NumberInputFormProps) {
+  return (
+    <NumberInput defaultValue={value} clampValueOnBlur={false}>
+      <NumberInputField />
+      <NumberInputStepper>
+        <NumberIncrementStepper />
+        <NumberDecrementStepper />
+      </NumberInputStepper>
+    </NumberInput>
   )
 }
 
