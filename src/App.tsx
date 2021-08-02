@@ -10,9 +10,11 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Text,
 } from '@chakra-ui/react'
 
-import { useAppSelector } from './hooks'
+import { useAppDispatch, useAppSelector } from './hooks'
+import { changeFNumber, changeIso, changeShutterSpeed } from './redux'
 function App() {
   return (
     <Center p={10}>
@@ -32,6 +34,7 @@ type SettingFormProps = {
 }
 function SettingForm({ HeadText }: SettingFormProps) {
   const { iso, shutterSpeed, fNumber } = useAppSelector((state) => state.exposure)
+  const dispatch = useAppDispatch()
   return (
     <Stack
       spacing={3}
@@ -43,27 +46,53 @@ function SettingForm({ HeadText }: SettingFormProps) {
       w={'sm'}
     >
       <Heading>{HeadText}</Heading>
-      <NumberInputForm value={iso} />
-      <NumberInputForm value={shutterSpeed} />
-      <NumberInputForm value={fNumber} />
+      <NumberInput
+        defaultValue={iso}
+        clampValueOnBlur={false}
+        onChange={(_, value) => dispatch(changeIso(value))}
+      >
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      </NumberInput>
+
+      <NumberInput
+        defaultValue={shutterSpeed}
+        clampValueOnBlur={false}
+        onChange={(_, value) => dispatch(changeShutterSpeed(value))}
+      >
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      </NumberInput>
+
+      <NumberInput
+        defaultValue={fNumber}
+        clampValueOnBlur={false}
+        onChange={(_, value) => dispatch(changeFNumber(value))}
+        step={0.1}
+        max={64}
+      >
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      </NumberInput>
+
+      <Text>Exposure value : {calculateExposureValue(iso, 1 / shutterSpeed, fNumber)}</Text>
     </Stack>
   )
 }
 
-type NumberInputFormProps = {
-  value: number
-}
-
-function NumberInputForm({ value }: NumberInputFormProps) {
-  return (
-    <NumberInput defaultValue={value} clampValueOnBlur={false}>
-      <NumberInputField />
-      <NumberInputStepper>
-        <NumberIncrementStepper />
-        <NumberDecrementStepper />
-      </NumberInputStepper>
-    </NumberInput>
-  )
+function calculateExposureValue(iso: number, shutterSpeed: number, fNumber: number): number {
+  const ev100 = Math.log2(fNumber ** 2 / shutterSpeed)
+  const correctionEv = Math.log2(iso / 100)
+  return Math.round(ev100 + correctionEv)
 }
 
 export default App
