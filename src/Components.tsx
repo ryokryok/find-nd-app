@@ -26,46 +26,44 @@ export function UserSettingForm() {
       w={'sm'}
     >
       <Heading>Your setting</Heading>
-      <NumberInput
-        defaultValue={iso}
-        clampValueOnBlur={false}
-        onChange={(_, value) => dispatch(changeUserIso(value))}
-      >
-        <NumberInputField />
-        <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
-        </NumberInputStepper>
-      </NumberInput>
+      <NumberInputForm
+        value={iso}
+        handler={(_, value) => dispatch(changeUserIso(value))}
+        step={10}
+      />
 
-      <NumberInput
-        defaultValue={shutterSpeed}
-        clampValueOnBlur={false}
-        onChange={(_, value) => dispatch(changeUserShutterSpeed(value))}
-      >
-        <NumberInputField />
-        <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
-        </NumberInputStepper>
-      </NumberInput>
+      <NumberInputForm
+        value={shutterSpeed}
+        handler={(_, value) => dispatch(changeUserShutterSpeed(value))}
+        step={1}
+      />
 
-      <NumberInput
-        defaultValue={fNumber}
-        clampValueOnBlur={false}
-        onChange={(_, value) => dispatch(changeUserFNumber(value))}
+      <NumberInputForm
+        value={fNumber}
+        handler={(_, value) => dispatch(changeUserFNumber(value))}
         step={0.1}
-        max={64}
-      >
-        <NumberInputField />
-        <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
-        </NumberInputStepper>
-      </NumberInput>
+      />
 
       <Text>Exposure value : {calculateExposureValue(iso, 1 / shutterSpeed, fNumber)}</Text>
     </Stack>
+  )
+}
+
+type NumberInputFormProps = {
+  value: number
+  handler: (valueAsString: string, valueAsNumber: number) => void
+  step: number
+}
+
+function NumberInputForm({ value, handler, step }: NumberInputFormProps) {
+  return (
+    <NumberInput defaultValue={value} clampValueOnBlur={false} onChange={handler} step={step}>
+      <NumberInputField />
+      <NumberInputStepper>
+        <NumberIncrementStepper />
+        <NumberDecrementStepper />
+      </NumberInputStepper>
+    </NumberInput>
   )
 }
 
