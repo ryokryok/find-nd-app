@@ -10,10 +10,10 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import { useAppSelector, useAppDispatch } from './hooks'
-import { changeIso, changeShutterSpeed, changeFNumber } from './redux'
+import { changeUserIso, changeUserShutterSpeed, changeUserFNumber } from './redux/userExposureSlice'
 
 export function UserSettingForm() {
-  const { iso, shutterSpeed, fNumber } = useAppSelector((state) => state.exposure)
+  const { iso, shutterSpeed, fNumber } = useAppSelector((state) => state.userExposure)
   const dispatch = useAppDispatch()
   return (
     <Stack
@@ -29,7 +29,7 @@ export function UserSettingForm() {
       <NumberInput
         defaultValue={iso}
         clampValueOnBlur={false}
-        onChange={(_, value) => dispatch(changeIso(value))}
+        onChange={(_, value) => dispatch(changeUserIso(value))}
       >
         <NumberInputField />
         <NumberInputStepper>
@@ -41,7 +41,7 @@ export function UserSettingForm() {
       <NumberInput
         defaultValue={shutterSpeed}
         clampValueOnBlur={false}
-        onChange={(_, value) => dispatch(changeShutterSpeed(value))}
+        onChange={(_, value) => dispatch(changeUserShutterSpeed(value))}
       >
         <NumberInputField />
         <NumberInputStepper>
@@ -53,7 +53,7 @@ export function UserSettingForm() {
       <NumberInput
         defaultValue={fNumber}
         clampValueOnBlur={false}
-        onChange={(_, value) => dispatch(changeFNumber(value))}
+        onChange={(_, value) => dispatch(changeUserFNumber(value))}
         step={0.1}
         max={64}
       >
@@ -72,5 +72,5 @@ export function UserSettingForm() {
 function calculateExposureValue(iso: number, shutterSpeed: number, fNumber: number): number {
   const ev100 = Math.log2(fNumber ** 2 / shutterSpeed)
   const correctionEv = Math.log2(iso / 100)
-  return Math.round(ev100 + correctionEv)
+  return ev100 + correctionEv
 }
