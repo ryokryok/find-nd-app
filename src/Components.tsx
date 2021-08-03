@@ -24,9 +24,3 @@ export function NumberInputForm({ value, handler, step }: NumberInputFormProps) 
     </NumberInput>
   )
 }
-
-export function calculateExposureValue(iso: number, shutterSpeed: number, fNumber: number): number {
-  const ev100 = Math.log2(fNumber ** 2 / shutterSpeed)
-  const correctionEv = Math.log2(iso / 100)
-  return ev100 + correctionEv
-}
