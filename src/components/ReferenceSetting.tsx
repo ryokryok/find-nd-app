@@ -4,13 +4,13 @@ import { NumberInputForm } from '../Components'
 import { useAppSelector, useAppDispatch } from '../hooks'
 import { calculateExposureValue } from '../lib'
 import {
-  changeUserIso,
-  changeUserShutterSpeed,
-  changeUserFNumber,
-} from '../redux/userExposureSlice'
+  changeReferenceIso,
+  changeReferenceShutterSpeed,
+  changeReferenceFNumber,
+} from '../redux/referenceExposureSlice'
 
-export function UserSetting() {
-  const { iso, shutterSpeed, fNumber } = useAppSelector((state) => state.userExposure)
+export function ReferenceSetting() {
+  const { iso, shutterSpeed, fNumber } = useAppSelector((state) => state.referenceExposure)
   const dispatch = useAppDispatch()
   return (
     <Stack
@@ -22,22 +22,22 @@ export function UserSetting() {
       borderColor={'gray.200'}
       w={'sm'}
     >
-      <Heading>Your setting</Heading>
+      <Heading>Reference setting</Heading>
       <NumberInputForm
         value={iso}
-        handler={(_, value) => dispatch(changeUserIso(value))}
+        handler={(_, value) => dispatch(changeReferenceIso(value))}
         step={10}
       />
 
       <NumberInputForm
         value={shutterSpeed}
-        handler={(_, value) => dispatch(changeUserShutterSpeed(value))}
+        handler={(_, value) => dispatch(changeReferenceShutterSpeed(value))}
         step={1}
       />
 
       <NumberInputForm
         value={fNumber}
-        handler={(_, value) => dispatch(changeUserFNumber(value))}
+        handler={(_, value) => dispatch(changeReferenceFNumber(value))}
         step={0.1}
       />
 
