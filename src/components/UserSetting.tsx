@@ -10,7 +10,8 @@ import {
 } from '../redux/userExposureSlice'
 
 export function UserSetting() {
-  const { iso, shutterSpeed, fNumber } = useAppSelector((state) => state.userExposure)
+  const exposure = useAppSelector((state) => state.userExposure)
+  const { iso, shutterSpeed, fNumber } = exposure
   const dispatch = useAppDispatch()
   return (
     <Stack
@@ -41,7 +42,7 @@ export function UserSetting() {
         step={0.1}
       />
 
-      <Text>Exposure value(100) : {calculateExposureValue(iso, shutterSpeed, fNumber)}</Text>
+      <Text>Exposure value(100) : {calculateExposureValue(exposure)}</Text>
     </Stack>
   )
 }
