@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-export interface ExposureState {
-  iso: number
-  shutterSpeed: number
-  fNumber: number
-}
+import { ExposureState } from '../types'
 
 // sunny 16 rule
 const initialState: ExposureState = {

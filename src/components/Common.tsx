@@ -19,7 +19,7 @@ import { InfoIcon } from '@chakra-ui/icons'
 import React from 'react'
 import { useAppSelector } from '../hooks'
 import { calculateExposureValue, calculateNDValue } from '../lib'
-import { ExposureState } from '../redux/referenceExposureSlice'
+import { ExposureState } from '../types'
 
 type NumberInputFormProps = {
   label?: string
