@@ -1,8 +1,7 @@
-import { Stack, Heading, Text, Spacer } from '@chakra-ui/react'
+import { Stack, Heading, Spacer } from '@chakra-ui/react'
 import React from 'react'
-import { NumberInputForm } from '../Components'
+import { ExposureValueBox, NumberInputForm } from './Common'
 import { useAppSelector, useAppDispatch } from '../hooks'
-import { calculateExposureValue } from '../lib'
 import {
   changeReferenceIso,
   changeReferenceShutterSpeed,
@@ -23,7 +22,10 @@ export function ReferenceSetting() {
       borderColor={'gray.300'}
       w={'xs'}
     >
-      <Heading>Reference setting</Heading>
+      <Heading>
+        Reference <br />
+        setting
+      </Heading>
       <Spacer />
       <NumberInputForm
         label={'ISO'}
@@ -46,7 +48,7 @@ export function ReferenceSetting() {
         step={0.1}
       />
 
-      <Text>Exposure value(100) : {calculateExposureValue(exposure)}</Text>
+      <ExposureValueBox exposure={exposure} />
     </Stack>
   )
 }

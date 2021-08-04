@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface ExposureState {
+export interface ExposureState {
   iso: number
   shutterSpeed: number
   fNumber: number
