@@ -11,9 +11,7 @@ export function calculateNDValue(
   userSetting: CaptureSetting,
   referenceSetting: CaptureSetting
 ): number {
-  const diffND = Math.abs(
-    calculateExposureValue(referenceSetting) - calculateExposureValue(userSetting)
-  )
+  const diffND = calculateExposureValue(referenceSetting) - calculateExposureValue(userSetting)
   return round(2 ** diffND, 2)
 }
 
