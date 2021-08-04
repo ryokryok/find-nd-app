@@ -1,27 +1,20 @@
 import React from 'react'
-import { Center, Divider, Heading, HStack, VStack } from '@chakra-ui/react'
+import { Container, HStack } from '@chakra-ui/react'
 
 import { UserSetting } from './components/UserSetting'
 import { ReferenceSetting } from './components/ReferenceSetting'
-import { useAppSelector } from './hooks'
-import { calculateNDValue } from './lib'
+import { Footer, NDValueBox, TitleHeader } from './components/Common'
 function App() {
-  const userSetting = useAppSelector((state) => state.userExposure)
-  const referenceSetting = useAppSelector((state) => state.referenceExposure)
-
   return (
-    <Center p={10}>
-      <VStack>
-        <Heading>Find ND Filter</Heading>
-        <Divider />
-        <HStack spacing={4} align='stretch'>
-          <UserSetting />
-          <ReferenceSetting />
-        </HStack>
-        <Divider />
-        <Heading>You need : {calculateNDValue(userSetting, referenceSetting)} ND</Heading>
-      </VStack>
-    </Center>
+    <Container>
+      <TitleHeader />
+      <HStack spacing={4} align='stretch'>
+        <UserSetting />
+        <ReferenceSetting />
+      </HStack>
+      <NDValueBox />
+      <Footer />
+    </Container>
   )
 }
 export default App
