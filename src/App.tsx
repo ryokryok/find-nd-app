@@ -1,5 +1,5 @@
 import React from 'react'
-import { Center, Heading, HStack, VStack } from '@chakra-ui/react'
+import { Center, Divider, Heading, HStack, VStack } from '@chakra-ui/react'
 
 import { UserSetting } from './components/UserSetting'
 import { ReferenceSetting } from './components/ReferenceSetting'
@@ -13,10 +13,12 @@ function App() {
     <Center p={10}>
       <VStack>
         <Heading>Find ND Filter</Heading>
-        <HStack spacing={4}>
+        <Divider />
+        <HStack spacing={4} align='stretch'>
           <UserSetting />
           <ReferenceSetting />
         </HStack>
+        <Divider />
         <Heading>You need : {calculateNDValue(userSetting, referenceSetting)} ND</Heading>
       </VStack>
     </Center>

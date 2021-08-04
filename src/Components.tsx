@@ -1,4 +1,6 @@
 import {
+  FormControl,
+  FormLabel,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
@@ -8,19 +10,29 @@ import {
 import React from 'react'
 
 type NumberInputFormProps = {
+  label?: string
   value: number
   handler: (valueAsString: string, valueAsNumber: number) => void
   step: number
 }
 
-export function NumberInputForm({ value, handler, step }: NumberInputFormProps) {
+export function NumberInputForm({ label = '', value, handler, step }: NumberInputFormProps) {
   return (
-    <NumberInput defaultValue={value} clampValueOnBlur={false} onChange={handler} step={step}>
-      <NumberInputField />
-      <NumberInputStepper>
-        <NumberIncrementStepper />
-        <NumberDecrementStepper />
-      </NumberInputStepper>
-    </NumberInput>
+    <FormControl>
+      <FormLabel>{label}</FormLabel>
+      <NumberInput
+        defaultValue={value}
+        clampValueOnBlur={false}
+        onChange={handler}
+        step={step}
+        size={'lg'}
+      >
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      </NumberInput>
+    </FormControl>
   )
 }

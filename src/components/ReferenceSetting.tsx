@@ -1,4 +1,4 @@
-import { Stack, Heading, Text } from '@chakra-ui/react'
+import { Stack, Heading, Text, Spacer } from '@chakra-ui/react'
 import React from 'react'
 import { NumberInputForm } from '../Components'
 import { useAppSelector, useAppDispatch } from '../hooks'
@@ -20,23 +20,27 @@ export function ReferenceSetting() {
       rounded={'md'}
       shadow={'md'}
       border={'1px'}
-      borderColor={'gray.200'}
-      w={'sm'}
+      borderColor={'gray.300'}
+      w={'xs'}
     >
       <Heading>Reference setting</Heading>
+      <Spacer />
       <NumberInputForm
+        label={'ISO'}
         value={iso}
         handler={(_, value) => dispatch(changeReferenceIso(value))}
         step={10}
       />
 
       <NumberInputForm
+        label={'Shutter Speed (1 / s)'}
         value={shutterSpeed}
         handler={(_, value) => dispatch(changeReferenceShutterSpeed(value))}
         step={1}
       />
 
       <NumberInputForm
+        label={'F Number'}
         value={fNumber}
         handler={(_, value) => dispatch(changeReferenceFNumber(value))}
         step={0.1}
