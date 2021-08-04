@@ -10,7 +10,8 @@ import {
 } from '../redux/referenceExposureSlice'
 
 export function ReferenceSetting() {
-  const { iso, shutterSpeed, fNumber } = useAppSelector((state) => state.referenceExposure)
+  const exposure = useAppSelector((state) => state.referenceExposure)
+  const { iso, shutterSpeed, fNumber } = exposure
   const dispatch = useAppDispatch()
   return (
     <Stack
@@ -41,7 +42,7 @@ export function ReferenceSetting() {
         step={0.1}
       />
 
-      <Text>Exposure value(100) : {calculateExposureValue(iso, shutterSpeed, fNumber)}</Text>
+      <Text>Exposure value(100) : {calculateExposureValue(exposure)}</Text>
     </Stack>
   )
 }
